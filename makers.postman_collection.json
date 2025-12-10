@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "11d3c962-a3d7-4605-90d7-11bb83d2f6ee",
+		"name": "makers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45739853",
+		"_collection_link": "https://oscarchantre-7997164.postman.co/workspace/oscar-chantre's-Workspace~eda949d4-5377-429b-80c9-bc725c012c2e/collection/45739853-11d3c962-a3d7-4605-90d7-11bb83d2f6ee?action=share&source=collection_link&creator=45739853"
+	},
+	"item": [
+		{
+			"name": "Create student",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//validar codigo de respuesta 201\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    });\r",
+							"\r",
+							"const responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"First name es correcto\", function () {\r",
+							"    pm.expect(responseBody.student.first_name)\r",
+							"      .to.eql(\"Test User\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email es correcto\", function () {\r",
+							"    pm.expect(responseBody.student.course_id)\r",
+							"      .to.eql(\"11\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//guarda el id en una variable de coleccion\r",
+							"const studentId = pm.response.json().student.id;\r",
+							"pm.collectionVariables.set(\"studentId\", studentId);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"first_name\": \"Test User\",\r\n        \"last_name\": \"{{$randomLastName}}\",\r\n        \"email\": \"{{$randomEmail}}\",\r\n        \"status\": true,\r\n        \"course_id\": \"11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://student.geekqa.net/api/students",
+					"protocol": "https",
+					"host": [
+						"student",
+						"geekqa",
+						"net"
+					],
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// analiza la respuesta que sea un tipo Json\r",
+							"let response = pm.response.json(); \r",
+							"\r",
+							"// extraer el token\r",
+							"let value = response.access_token; \r",
+							"\r",
+							"// añade el valor del token a las variables de colección para su uso futuro\r",
+							"pm.collectionVariables.set(\"token\", value);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"geekqa@test.com\",\r\n  \"password\": \"geekqa2025\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://student.geekqa.net/api/login",
+					"protocol": "https",
+					"host": [
+						"student",
+						"geekqa",
+						"net"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Students",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://student.geekqa.net/api/students/{{studentId}}",
+					"protocol": "https",
+					"host": [
+						"student",
+						"geekqa",
+						"net"
+					],
+					"path": [
+						"api",
+						"students",
+						"{{studentId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "studentId",
+			"value": ""
+		}
+	]
+}
