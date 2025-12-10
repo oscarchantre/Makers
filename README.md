@@ -1,7 +1,7 @@
-# QA — API Automation / Postman Evidence
+# Prueba técnica QA Integral
 
 ## Descripción
-Repositorio con colecciones de Postman,automatización con playwright y Gherkin, casos de prueba y evidencias. 
+Repositorio con colecciones de Postman, Newman ,automatización con playwright y Gherkin, casos de prueba y evidencias. 
 
 Objetivo: Realizar las siguientes pruebas:
 
@@ -16,7 +16,8 @@ prueba funcional API: https://student.geekqa.net/api/
 
 ## Requisitos locales
 - git
-- Postman
+- Postman Newman Codigo de ejecución para reportes: npx newman run Students.postman_collection.json
+
 - Playwright con python y Gherkin ejecutar prueba:
    pytest -v tests/ --headed --browser chromium
 con un informe:
