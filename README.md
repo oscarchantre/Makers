@@ -10,7 +10,7 @@ Pruebas Funcionales, Producto ficticio: MakersPay, una billetera digital
 prueba funcional API: https://student.geekqa.net/api/ 
 
 ## Estructura del repositorio
-- `makers.postman_collection` - colección exportada desde Postman.
+- `Postman` - colección exportada desde Postman y documentación.
 - `Documentación Makers` - casos de prueba manuales (Escenarios - Casos de pruebas - reporte bug), Evidencia Smoke Test de Inicio de Sesión.
 - `Proyecto Cucumber` -Módulo de Automatización – Smoke Test de Inicio de Sesión (SauceDemo).
 
